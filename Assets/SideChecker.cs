@@ -27,9 +27,9 @@ public class SideChecker : MonoBehaviour
         Gamepad gamepad = Gamepad.current;
         
         if(isRightSide)
-            gamepad.SetMotorSpeeds(0.0f,0.5f);
+            gamepad.SetMotorSpeeds(0.0f,0.1f);
         else
-            gamepad.SetMotorSpeeds(0.5f,0.0f);
+            gamepad.SetMotorSpeeds(0.1f,0.0f);
     }
 
     private void OnTriggerExit2D(Collider2D other)

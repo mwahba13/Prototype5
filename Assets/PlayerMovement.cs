@@ -20,9 +20,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Gamepad gamepad = Gamepad.current;
-
-        transform.position += new Vector3(gamepad.leftStick.ReadValue().x, gamepad.leftStick.ReadValue().y, 0)
-            *Time.deltaTime*moveSpeed;
+        float stickX = gamepad.leftStick.ReadValue().x;
+        float stickY = gamepad.leftStick.ReadValue().y;
+        
+        if(stickX != 0 || stickY != 0)
+            blackScreen.SetActive(true);
+        else 
+            blackScreen.SetActive(false);
+        
+        transform.position += new Vector3(stickX, stickY, 0)*Time.deltaTime*moveSpeed;
         
     }
 }
