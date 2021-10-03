@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
 
     public GameObject[] lightsToTurnOff;
+    public AudioSource audioSource;
     
     // Start is called before the first frame update
     void Start()
@@ -33,14 +34,22 @@ public class PlayerMovement : MonoBehaviour
                 light.SetActive(false);
             }
 
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+
+            audioSource.mute = false;
+
             transform.position += new Vector3(stickX, stickY, 0f) * moveSpeed * Time.deltaTime;
 
             float heading = Mathf.Atan2(stickX, -stickY);
-            transform.rotation=Quaternion.Euler(0f,0f,heading*Mathf.Rad2Deg));
+            transform.rotation=Quaternion.Euler(0f,0f,heading*Mathf.Rad2Deg);
 
         }
         else
         {
+            audioSource.mute = true;
             isPlayerMoving = false;
             foreach (var light in lightsToTurnOff)
             {
