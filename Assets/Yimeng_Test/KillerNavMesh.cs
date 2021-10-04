@@ -39,6 +39,6 @@ public class KillerNavMesh : MonoBehaviour
         {
             deadPanel.SetActive(true);
         }
-        Debug.Log(dist);
+        //Debug.Log(dist);
     }
 }

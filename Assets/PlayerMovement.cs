@@ -23,12 +23,14 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Gamepad gamepad = Gamepad.current;
+        Keyboard keyboard = Keyboard.current;
+        
 
         float stickX = gamepad.leftStick.ReadValue().x;
         float stickY = gamepad.leftStick.ReadValue().y;
 
 
-        if (gamepad.startButton.isPressed)
+        if (gamepad.startButton.isPressed || keyboard.rKey.isPressed)
             SceneManager.LoadScene(0);
         
         if (stickX != 0 || stickY != 0)
