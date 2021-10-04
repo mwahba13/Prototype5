@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
         float stickX = gamepad.leftStick.ReadValue().x;
         float stickY = gamepad.leftStick.ReadValue().y;
 
+
+        if (gamepad.startButton.isPressed)
+            SceneManager.LoadScene(0);
+        
         if (stickX != 0 || stickY != 0)
         {
             isPlayerMoving = true;
