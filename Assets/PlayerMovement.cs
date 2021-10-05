@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject[] lightsToTurnOff;
     public AudioSource audioSource;
+
+    private float stickX;
+    private float stickY;
     
     // Start is called before the first frame update
     void Start()
@@ -24,16 +27,33 @@ public class PlayerMovement : MonoBehaviour
     {
         Gamepad gamepad = Gamepad.current;
         Keyboard keyboard = Keyboard.current;
+
+
+        if (Input.GetJoystickNames().Length > 0)
+        {
+             stickX = gamepad.leftStick.ReadValue().x;
+             stickY = gamepad.leftStick.ReadValue().y;
+
+             if (gamepad.startButton.isPressed  || keyboard.rKey.isPressed)
+             {
+                 SceneManager.LoadScene(0);
+             }
+
+             if (stickX != 0 || stickY != 0)
+             {
+                 
+             }
+        }
         
 
-        float stickX = gamepad.leftStick.ReadValue().x;
-        float stickY = gamepad.leftStick.ReadValue().y;
+        float keyX = Input.GetAxis("Horizontal");
+        float keyY = Input.GetAxis("Vertical");
 
 
-        if (gamepad.startButton.isPressed || keyboard.rKey.isPressed)
+        if (keyboard.rKey.isPressed)
             SceneManager.LoadScene(0);
         
-        if (stickX != 0 || stickY != 0)
+        if (stickX != 0 || stickY != 0 || keyX !=0 || keyY !=0)
         {
             isPlayerMoving = true;
             foreach (var light in lightsToTurnOff)
@@ -49,8 +69,19 @@ public class PlayerMovement : MonoBehaviour
             audioSource.mute = false;
 
             transform.position += new Vector3(stickX, stickY, 0f) * moveSpeed * Time.deltaTime;
+           
+            if (keyX != 0 || keyY != 0)
+            {
+                transform.position +=new Vector3(keyX, keyY, 0f) * moveSpeed * Time.deltaTime;
+            }
+            
 
             float heading = Mathf.Atan2(stickX, -stickY);
+
+            if (keyX != 0 || keyY != 0)
+            {
+                 heading = Mathf.Atan2(keyX, -keyY);
+            }
             transform.rotation=Quaternion.Euler(0f,0f,heading*Mathf.Rad2Deg);
 
         }

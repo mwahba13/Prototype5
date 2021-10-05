@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    [SerializeField] private AudioSource keySound;
     public Exit _exit;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class Key : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _exit.playerHasKey = true;
+            keySound.Play();
             Destroy(this.gameObject);
         }
 
